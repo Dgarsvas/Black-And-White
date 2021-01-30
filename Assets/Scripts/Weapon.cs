@@ -55,7 +55,7 @@ public class Weapon : MonoBehaviour
 			direction += transform.up * (Random.value*2 - 1) * bulletSpread + transform.right * (Random.value * 2 - 1) * bulletSpread;
 			direction = direction.normalized;
 
-			Ray ray = new Ray(transform.position + direction, direction);
+			Ray ray = new Ray(transform.position, direction);
 			LayerMask mask = ~LayerMask.GetMask("Detector");
 			Debug.Log(mask.ToString());
 			RaycastHit hit;
