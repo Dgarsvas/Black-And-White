@@ -8,4 +8,14 @@ public static class AIUtils
     {
         return Vector2.Distance(new Vector2(a.x, a.z), new Vector2(b.x, b.z)) <= GlobalAISettings.DISTANCE_THRESHOLD;
     }
+    public static Quaternion RotateY(Vector3 direction)
+    {
+        float rot_z = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+        return Quaternion.Euler(0f, 180 - rot_z, 0f);
+    }
+    public static Quaternion LookAt(Vector3 from, Vector3 to) {
+        Vector3 direction = (from - to).normalized;
+        float rot_z = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+        return Quaternion.Euler(0f, 180 - rot_z, 0f);
+    }
 }

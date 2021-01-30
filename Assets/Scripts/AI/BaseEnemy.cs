@@ -9,6 +9,6 @@ public class BaseEnemy : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
 }

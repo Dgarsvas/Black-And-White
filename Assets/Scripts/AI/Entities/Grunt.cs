@@ -8,6 +8,7 @@ public class Grunt : BaseEnemy
     public float waitTime;
     private StateMachine _stateMachine;
     private EntityDetector entityDetector;
+    public Weapon equipedWeapon;
 
     [SerializeField]
     private Transform[] patrolPoints;
@@ -63,6 +64,12 @@ public class Grunt : BaseEnemy
 
     public override void TakeDamage(float damage)
     {
-        health -= damage;
+        health = Math.Max(0, health - damage);
+    }
+
+    public void AttackEnemy(Transform enemy) {
+        Vector3 direction = (transform.position - enemy.position).normalized;
+        transform.rotation = AIUtils.RotateY(direction);
+        equipedWeapon.Shoot(new Vector3());
     }
 }

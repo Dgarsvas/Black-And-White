@@ -75,4 +75,8 @@ public class Player : MonoBehaviour
         float rot_z = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 180 - rot_z, 0f);
     }
+    public void TakeDamage(float damage)
+    {
+        health = Mathf.Max(0, health - damage);
+    }
 }

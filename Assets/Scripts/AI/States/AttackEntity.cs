@@ -22,16 +22,16 @@ public class AttackEntity : IState
 
     public void OnEnter()
     {
-        throw new System.NotImplementedException();
+        _enemy = _enemyDetector.entity;
     }
 
     public void OnExit()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void Tick()
     {
-        throw new System.NotImplementedException();
+        _gatherer.AttackEnemy(_enemy);
     }
 }

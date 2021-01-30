@@ -52,24 +52,26 @@ public class Weapon : MonoBehaviour
 
 			Vector3 direction = -transform.forward;
 			//apply bullet spread
-			//direction += transform.up * (Random.value*2 - 1) * bulletSpread + transform.right * (Random.value * 2 - 1) * bulletSpread;
-			//direction = direction.normalized;
-
+			direction += transform.up * (Random.value*2 - 1) * bulletSpread + transform.right * (Random.value * 2 - 1) * bulletSpread;
+			direction = direction.normalized;
 
 			Ray ray = new Ray(transform.position + direction, direction);
+			LayerMask mask = ~LayerMask.GetMask("Detector");
+			Debug.Log(mask.ToString());
 			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit))
+			if (Physics.Raycast(ray, out hit, 100, mask))
 			{
 				if (hit.collider.gameObject.CompareTag("Enemy"))
 				{
 					Debug.DrawRay(transform.position, direction * 10f, Color.red);
-					Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
-					enemy.health -= damage;
-					if (enemy.health <= 0) hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(direction * 500f);
+					Grunt enemy = hit.collider.gameObject.GetComponent<Grunt>();
+					enemy.TakeDamage(damage);
+					//if (enemy.health <= 0) hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(direction * 500f);
 				}
 				else if (hit.collider.gameObject.CompareTag("Player"))
 				{
-
+					Player player = hit.collider.gameObject.GetComponent<Player>();
+					player.TakeDamage(damage);
 				}
 				else Debug.DrawRay(transform.position, direction * 10f);
 
