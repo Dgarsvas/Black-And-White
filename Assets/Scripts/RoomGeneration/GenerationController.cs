@@ -6,15 +6,43 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
+public class GuardSpawn
+{
+    public Vector3 pos;
+    public float rot;
+    public GuardSpawn(Vector3 pos, float rot)
+    {
+        this.pos = pos;
+        this.rot = rot;
+    }
+}
+
+public class PatrolSpawn
+{
+    public PatrolRoute route;
+
+    public PatrolSpawn(PatrolRoute route)
+    {
+        this.route = route;
+    }
+}
+
 public class GenerationController : MonoBehaviour
 {
     public static GenerationController instance;
     public GameObject[] roomPrefabs;
     public GameObject[] patrolPrefabs;
-    public GameObject[] staticPrefabs;
+    public GameObject[] guardPrefabs;
     [HideInInspector]
     public List<Room> rooms;
     public int maxRoomCount;
+
+    public delegate void Notify();
+    public event Notify GenerationCompleted;
+
+    private Room lastSpawnedRoom;
+    public List<GuardSpawn> guardSpawnList;
+    public List<PatrolSpawn> patrolSpawnList;
 
     void Awake()
     {
@@ -29,10 +57,11 @@ public class GenerationController : MonoBehaviour
         }
     }
 
-    private Room lastSpawnedRoom;
 
     private void GenerateRooms()
     {
+        guardSpawnList = new List<GuardSpawn>();
+        patrolSpawnList = new List<PatrolSpawn>();
         rooms = new List<Room>();
         int roomCount = 2;
         SpawnFirstRoom();
@@ -66,6 +95,30 @@ public class GenerationController : MonoBehaviour
         }
 
         lastSpawnedRoom.SetAsLastRoom();
+    }
+
+    internal void GenerationComplete()
+    {
+        SpawnAllEnemies();
+    }
+
+
+
+    private void SpawnAllEnemies()
+    {
+        for (int i = 0; i < patrolSpawnList.Count; i++)
+        {
+            var enemy = Instantiate(GetRandomPatrolEnemy(), patrolSpawnList[i].route.points[0].position, Quaternion.identity);
+            enemy.GetComponent<PatrolEnemy>().SetupEnemy(patrolSpawnList[i].route);
+        }
+        patrolSpawnList.Clear();
+
+        for (int i = 0; i < guardSpawnList.Count; i++)
+        {
+            var enemy = Instantiate(GetRandomGuardEnemy(), guardSpawnList[i].pos, Quaternion.identity);
+            enemy.GetComponent<GuardEnemy>().SetupEnemy(guardSpawnList[i].pos, guardSpawnList[i].rot);
+        }
+        guardSpawnList.Clear();
     }
 
     private void SpawnFirstRoom()
@@ -107,9 +160,9 @@ public class GenerationController : MonoBehaviour
         return patrolPrefabs[Random.Range(0, patrolPrefabs.Length)];
     }
 
-    internal GameObject GetRandomStaticEnemy()
+    internal GameObject GetRandomGuardEnemy()
     {
-        return patrolPrefabs[Random.Range(0, staticPrefabs.Length)];
+        return guardPrefabs[Random.Range(0, guardPrefabs.Length)];
     }
 
     internal void SpawnGirl(Transform mainPoint)

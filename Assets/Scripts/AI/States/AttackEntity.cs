@@ -5,15 +5,15 @@ using UnityEngine.AI;
 
 public class AttackEntity : IState
 {
-    private Grunt _gatherer;
+    private BaseEntity _entity;
     private NavMeshAgent _navMeshAgent;
     private EntityDetector _enemyDetector;
     private Animator _animator;
     private Transform _enemy;
 
-    public AttackEntity(Grunt grunt, NavMeshAgent navMeshAgent, EntityDetector entityDetector, Animator animator)
+    public AttackEntity(BaseEntity entity, NavMeshAgent navMeshAgent, EntityDetector entityDetector, Animator animator)
     {
-        _gatherer = grunt;
+        _entity = entity;
         _navMeshAgent = navMeshAgent;
         _enemyDetector = entityDetector;
         _animator = animator;

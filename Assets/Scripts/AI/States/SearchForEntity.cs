@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class SearchForEntity : IState
 {
-    private readonly Grunt _grunt;
+    private readonly BaseEntity _entity;
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private EntityDetector _entityDetector;
@@ -14,9 +14,9 @@ public class SearchForEntity : IState
     public float timer;
     private float waitTimer;
 
-    public SearchForEntity(Grunt grunt, EntityDetector entityDetector, NavMeshAgent navMeshAgent, Animator animator)
+    public SearchForEntity(BaseEntity entity, EntityDetector entityDetector, NavMeshAgent navMeshAgent, Animator animator)
     {
-        _grunt = grunt;
+        _entity = entity;
         _navMeshAgent = navMeshAgent;
         _animator = animator;
         _target = entityDetector.entityPos;
@@ -33,7 +33,7 @@ public class SearchForEntity : IState
 
         if (!inPosition)
         {
-            if (AIUtils.ApproximatePositionReached(_grunt.transform.position, _target))
+            if (AIUtils.ApproximatePositionReached(_entity.transform.position, _target))
             {
                 inPosition = true;
             }
@@ -42,11 +42,6 @@ public class SearchForEntity : IState
         {
             timer += Time.deltaTime;
         }
-    }
-
-    private float ApproximateDistance(Vector3 a, Vector3 b)
-    {
-        return Vector2.Distance(new Vector2(a.x, a.z), new Vector2(b.x, b.z));
     }
 
     public void OnEnter()

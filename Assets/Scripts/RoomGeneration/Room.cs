@@ -60,7 +60,7 @@ public class Room : MonoBehaviour
         }
 
         //SpawnObstacles();
-        //SpawnEnemies(staticEnemyAmount, patrolEnemyAmount);
+        SpawnEnemies(staticEnemyAmount, patrolEnemyAmount);
     }
 
     private void RotateAndOffsetRoomToMatchPreviousRoomEntry(Transform thisRoom, Transform otherRoom)
@@ -73,6 +73,7 @@ public class Room : MonoBehaviour
     {
         GenerationController.instance.SpawnGirl(mainPoint);
         navMeshSurface.BuildNavMesh();
+        GenerationController.instance.GenerationComplete();
     }
 
     private void Offset(Transform thisRoom, Transform otherRoom)
@@ -143,27 +144,26 @@ public class Room : MonoBehaviour
     {
         for (int i = 0; i < staticEnemyAmount; i++)
         {
-            SpawnStaticEnemy();
+            AddGuardEnemyToSpawnList();
         }
 
         for (int i = 0; i < patrolEnemyAmount; i++)
         {
-            SpawnPatrolEnemy();
+            AddPatrolEnemyToSpawnList();
         }
     }
 
-    private void SpawnStaticEnemy()
+    private void AddGuardEnemyToSpawnList()
     {
         Vector3 pos = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
-        var enemy = Instantiate(GenerationController.instance.GetRandomStaticEnemy(), pos, Quaternion.identity);
-        enemy.GetComponent<StaticEnemy>().SetupEnemy(pos);
+        GenerationController.instance.guardSpawnList.Add(new GuardSpawn(pos, Quaternion.FromToRotation(pos, mainPoint.position).eulerAngles.y));
+
     }
 
-    private void SpawnPatrolEnemy()
+    private void AddPatrolEnemyToSpawnList()
     {
         PatrolRoute route = routes[Random.Range(0, routes.Length)];
-        var enemy = Instantiate(GenerationController.instance.GetRandomPatrolEnemy(), route.points[0].position, Quaternion.identity);
-        enemy.GetComponent<PatrolEnemy>().SetupEnemy(route);
+        GenerationController.instance.patrolSpawnList.Add(new PatrolSpawn(route));
     }
 
     private void SpawnObstacles()

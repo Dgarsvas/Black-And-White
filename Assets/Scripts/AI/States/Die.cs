@@ -5,17 +5,16 @@ using UnityEngine.AI;
 
 public class Die : IState
 {
-    private readonly Grunt _grunt;
+    private readonly BaseEntity _entity;
     private NavMeshAgent _navMeshAgent;
     private readonly EntityDetector _enemyDetector;
     private Animator _animator;
 
-    private float _initialSpeed;
     private float timer;
 
-    public Die(Grunt grunt, NavMeshAgent navMeshAgent, EntityDetector enemyDetector, Animator animator)
+    public Die(BaseEntity entity, NavMeshAgent navMeshAgent, EntityDetector enemyDetector, Animator animator)
     {
-        _grunt = grunt;
+        _entity = entity;
         _navMeshAgent = navMeshAgent;
         _enemyDetector = enemyDetector;
         _animator = animator;
@@ -26,7 +25,6 @@ public class Die : IState
         _navMeshAgent.enabled = false;
         _enemyDetector.enabled = false;
         //TODO activate ragdoll
-        _initialSpeed = _navMeshAgent.speed;
     }
 
     public void Tick()
@@ -37,7 +35,7 @@ public class Die : IState
         }
         else
         {
-            _grunt.Despawn();
+            _entity.Despawn();
         }
     }
 
