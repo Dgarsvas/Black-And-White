@@ -34,10 +34,10 @@ public class Room : MonoBehaviour
     [SerializeField]
     private Transform[] obstaclePositions;
     [SerializeField]
-    private Transform mainPoint;
+    public Transform mainPoint;
 
     [SerializeField]
-    private NavMeshSurface navMeshSurface;
+    public NavMeshSurface navMeshSurface;
 
     public List<Transform> entryPoints;
 
@@ -67,13 +67,6 @@ public class Room : MonoBehaviour
     {
         Rotate(thisRoom, otherRoom);
         Offset(thisRoom, otherRoom);
-    }
-
-    internal void SetAsLastRoom()
-    {
-        GenerationController.instance.SpawnGirl(mainPoint);
-        navMeshSurface.BuildNavMesh();
-        GenerationController.instance.GenerationComplete();
     }
 
     private void Offset(Transform thisRoom, Transform otherRoom)

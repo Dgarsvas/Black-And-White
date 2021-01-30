@@ -16,9 +16,20 @@ public class EntityDetector : MonoBehaviour
     private void Awake()
     {
         detected = false;
-        soundDetector.OnDetected += SoundDetected;
-        visionDetector.OnDetected += VisionDetected;
-        peripheralDetector.OnDetected += PeripheralDetected;
+        if (soundDetector != null)
+        {
+            soundDetector.OnDetected += SoundDetected;
+        }
+
+        if (visionDetector != null)
+        {
+            visionDetector.OnDetected += VisionDetected;
+        }
+
+        if (peripheralDetector != null)
+        {
+            peripheralDetector.OnDetected += PeripheralDetected;
+        }
     }
 
     private void PeripheralDetected(Collider coll)
