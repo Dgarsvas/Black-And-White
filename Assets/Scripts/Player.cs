@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     Camera camera;
 
     public Weapon currentWeapon;
+    public Transform weaponSlot;
 
     NavMeshAgent agent;
     float speed = 0.5f; //speed of movement
@@ -61,6 +62,8 @@ public class Player : MonoBehaviour
             recentlyShot = 50;
         }
         recentlyShot--;
+        //reload
+        if (Input.GetKeyDown(KeyCode.R)) currentWeapon.Reload();
 
     }
     /// <summary>
