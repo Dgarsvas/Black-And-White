@@ -57,7 +57,6 @@ public class Weapon : MonoBehaviour
 
 			Ray ray = new Ray(transform.position, direction);
 			LayerMask mask = ~LayerMask.GetMask("Detector");
-			Debug.Log(mask.ToString());
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, 100, mask))
 			{

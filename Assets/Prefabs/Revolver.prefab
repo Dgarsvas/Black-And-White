@@ -103,9 +103,9 @@ MonoBehaviour:
   ammoCapacity: 30
   mag: 10
   magCapacity: 10
-  shootInterval: 0.3
-  reloadTime: 0.4
-  bulletSpread: 0.1
+  shootInterval: 0.5
+  reloadTime: 1
+  bulletSpread: 0.05
 --- !u!120 &3242752501721740320
 LineRenderer:
   m_ObjectHideFlags: 0

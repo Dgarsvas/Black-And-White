@@ -10,6 +10,7 @@ public class AttackEntity : IState
     private EntityDetector _enemyDetector;
     private Animator _animator;
     private Transform _enemy;
+    private float attackDelay;
 
     public AttackEntity(Grunt grunt, NavMeshAgent navMeshAgent, EntityDetector entityDetector, Animator animator)
     {
@@ -23,6 +24,7 @@ public class AttackEntity : IState
     public void OnEnter()
     {
         _enemy = _enemyDetector.entity;
+        attackDelay = _gatherer.attackDelay;
     }
 
     public void OnExit()
@@ -32,6 +34,7 @@ public class AttackEntity : IState
 
     public void Tick()
     {
-        _gatherer.AttackEnemy(_enemy);
+        attackDelay -= Time.deltaTime;
+        if(_enemyDetector.hasSight && attackDelay<=0) _gatherer.AttackEnemy(_enemy);
     }
 }

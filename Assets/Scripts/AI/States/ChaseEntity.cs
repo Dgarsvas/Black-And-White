@@ -1,20 +1,22 @@
-﻿using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SearchForEntity : IState
+public class ChaseEntity : IState
 {
     private readonly Grunt _grunt;
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private EntityDetector _entityDetector;
+    private Transform _enemy;
     private Vector3 _target;
     private static readonly int Speed = Animator.StringToHash("Speed");
     public bool inPosition;
     public float timer;
     private float waitTimer;
 
-    public SearchForEntity(Grunt grunt, EntityDetector entityDetector, NavMeshAgent navMeshAgent, Animator animator)
+    public ChaseEntity(Grunt grunt, EntityDetector entityDetector, NavMeshAgent navMeshAgent, Animator animator)
     {
         _grunt = grunt;
         _navMeshAgent = navMeshAgent;
@@ -25,12 +27,6 @@ public class SearchForEntity : IState
 
     public void Tick()
     {
-        if (waitTimer <= 0.3f)
-        {
-            waitTimer += Time.deltaTime;
-            return;
-        }
-
         if (!inPosition)
         {
             if (AIUtils.ApproximatePositionReached(_grunt.transform.position, _target))
@@ -38,14 +34,11 @@ public class SearchForEntity : IState
                 inPosition = true;
             }
         }
-        else
-        {
-            timer += Time.deltaTime;
-        }
-       
-        _navMeshAgent.SetDestination(_entityDetector.entityPos);
-        _target = _entityDetector.entityPos;
+
+        //_navMeshAgent.SetDestination(_target);
         _grunt.transform.rotation = AIUtils.LookAt(_grunt.transform.position, _target);
+        //if (_entityDetector.hasSight) _grunt.AttackEnemy(_enemy);
+        Debug.Log("Chasing player");
     }
 
     private float ApproximateDistance(Vector3 a, Vector3 b)
@@ -55,11 +48,10 @@ public class SearchForEntity : IState
 
     public void OnEnter()
     {
-        _entityDetector.detected = false;
-        timer = 0;
         inPosition = false;
         _navMeshAgent.enabled = true;
-        _target = _entityDetector.entityPos;
+        _target = _entityDetector.entityPos; // Vector3.Lerp( _grunt.transform.position, _entityDetector.entityPos, 0.0f);
+        _enemy = _entityDetector.entity;
         _navMeshAgent.SetDestination(_target);
         _animator.SetFloat(Speed, 1f);
     }

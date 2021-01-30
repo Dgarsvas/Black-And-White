@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     float speed = 0.5f; //speed of movement
     public float health = 100;
     public bool hiding = false;
+    public bool moving = false;
+    public bool sneaking = false;
+    public int recentlyShot = 0;
     //Quaternion hidingRotation;
     Vector3 hidingDirection;
 
@@ -28,9 +31,12 @@ public class Player : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Vertical");
         float z = Input.GetAxisRaw("Horizontal");
+        moving = (x != 0 || z != 0);
 
         //Move
-        Vector3 moveDestination = transform.position + new Vector3(- x + z, 0, x + z) * speed;
+        float currentSpeed = speed;
+        if (sneaking) currentSpeed *= 0.1f;
+        Vector3 moveDestination = transform.position + new Vector3(- x + z, 0, x + z) * currentSpeed;
         agent.destination = moveDestination;
 
         //Rotate
@@ -38,7 +44,7 @@ public class Player : MonoBehaviour
         Vector3 direction = (transform.position - hit.point).normalized;
         RotateY(direction);
 
-        //crouch
+        //hide
         if (Input.GetKeyDown(KeyCode.C))
         {
             if (hiding) hiding = false;
@@ -46,8 +52,15 @@ public class Player : MonoBehaviour
         }
         if (hiding) RotateY(hidingDirection);
 
+        if (Input.GetKey(KeyCode.LeftShift) && !sneaking) sneaking = true;
+        else if (!Input.GetKey(KeyCode.LeftShift) && sneaking) sneaking = false;
+
         //Shoot
-        if (Input.GetMouseButton(0)) currentWeapon.Shoot(cameraFollow.floorRaycast.point);
+        if (Input.GetMouseButton(0)) {
+            currentWeapon.Shoot(cameraFollow.floorRaycast.point);
+            recentlyShot = 50;
+        }
+        recentlyShot--;
 
     }
     /// <summary>

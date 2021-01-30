@@ -9,9 +9,13 @@ public class EntityDetector : MonoBehaviour
 
     public bool canReactToNewDetections;
     public bool detected;
+    public bool hasSight;
+    public float visionDistance;
+    public float footstepHearingDistance;
 
     public Vector3 entityPos;
     public Transform entity;
+    public float timelastSeen = 0;
 
     private void Awake()
     {
@@ -19,6 +23,17 @@ public class EntityDetector : MonoBehaviour
         soundDetector.OnDetected += SoundDetected;
         visionDetector.OnDetected += VisionDetected;
         peripheralDetector.OnDetected += PeripheralDetected;
+    }
+
+    public bool DirectSight(Vector3 position) {
+        Vector3 direction = (position - transform.position).normalized;
+        Ray ray = new Ray(transform.position + direction*0.5f, direction);
+        RaycastHit hit;
+        
+        bool ret = Physics.Raycast(ray, out hit, visionDistance, ~LayerMask.GetMask("Detector"));
+        if (!ret) return false;
+        Debug.DrawRay(transform.position, hit.point - transform.position);
+        return hit.collider.CompareTag("Player");
     }
 
     private void PeripheralDetected(Collider coll)
@@ -40,9 +55,13 @@ public class EntityDetector : MonoBehaviour
         if (!canReactToNewDetections)
             return;
 
-        if (coll.CompareTag("Player"))
+        if (coll.CompareTag("Player") && DirectSight(coll.transform.position))
         {
+            //detected = true;
+            timelastSeen = Time.time;
+            hasSight = true;
             entity = coll.transform;
+            entityPos = coll.transform.position;
         }
     }
 
@@ -52,10 +71,14 @@ public class EntityDetector : MonoBehaviour
         if (!canReactToNewDetections)
             return;
 
-        if (coll.CompareTag("Player"))
-        {
-            detected = true;
-            entityPos = coll.transform.position;
+        float distance = Vector3.Distance(coll.transform.position, transform.position);
+        if (coll.CompareTag("Player")) {
+            Player player = coll.GetComponent<Player>();
+            if ((player.moving && distance < footstepHearingDistance && !player.sneaking) || (player.recentlyShot > 0))
+            {
+                detected = true;
+                entityPos = coll.transform.position;
+            }
         }
     }
 
