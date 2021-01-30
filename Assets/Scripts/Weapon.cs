@@ -50,9 +50,9 @@ public class Weapon : MonoBehaviour
 			//Vector3 direction = (point - transform.position);
 			//direction = new Vector3(direction.x, 0, direction.z);
 
-			Vector3 direction = transform.right;
+			Vector3 direction = -transform.forward;
 			//apply bullet spread
-			//direction += transform.up * (Random.value*2 - 1) * bulletSpread + transform.forward * (Random.value * 2 - 1) * bulletSpread;
+			//direction += transform.up * (Random.value*2 - 1) * bulletSpread + transform.right * (Random.value * 2 - 1) * bulletSpread;
 			//direction = direction.normalized;
 
 
@@ -60,20 +60,21 @@ public class Weapon : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit))
 			{
-				if (hit.collider.gameObject.CompareTag("Enemy")) 
+				if (hit.collider.gameObject.CompareTag("Enemy"))
 				{
 					Debug.DrawRay(transform.position, direction * 10f, Color.red);
 					Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
 					enemy.health -= damage;
-					if(enemy.health<=0) hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(direction * 500f);
+					if (enemy.health <= 0) hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(direction * 500f);
 				}
 				else if (hit.collider.gameObject.CompareTag("Player"))
 				{
 
 				}
 				else Debug.DrawRay(transform.position, direction * 10f);
-				
+
 			}
+			else hit.distance = 100;
 			//Vector3[] points = { transform.position, hit.point };
 			Vector3[] points = { transform.position, transform.position + direction * (hit.distance + 1) };
 			shotRay.SetPositions(points);
