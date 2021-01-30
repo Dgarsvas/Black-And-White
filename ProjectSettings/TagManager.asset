@@ -13,10 +13,10 @@ TagManager:
   - Floor
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - NavMesh
+  - Obstacle
+  - Detector
+  - Player
   - 
   - 
   - 
