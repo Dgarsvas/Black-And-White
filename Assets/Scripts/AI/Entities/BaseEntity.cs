@@ -6,10 +6,11 @@ using UnityEngine;
 public class BaseEntity : MonoBehaviour
 {
     public float health;
+    public Weapon equipedWeapon;
 
     public virtual void TakeDamage(float damage, Vector3 direction)
     {
-        throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
 
     public void TakeDamage(float damage)
@@ -20,5 +21,12 @@ public class BaseEntity : MonoBehaviour
     public virtual void Despawn()
     {
 
+    }
+
+    public void AttackEnemy(Transform enemy)
+    {
+        Vector3 direction = (transform.position - enemy.position).normalized;
+        transform.rotation = AIUtils.RotateY(direction);
+        equipedWeapon.Shoot(new Vector3());
     }
 }

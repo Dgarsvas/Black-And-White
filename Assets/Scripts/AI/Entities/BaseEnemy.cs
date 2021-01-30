@@ -16,6 +16,7 @@ public class BaseEnemy : BaseEntity
     protected Rigidbody rb;
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
+    public float attackDelay = 0.3f;
 
     public virtual void ShowSign(Signs sign)
     {
@@ -25,6 +26,9 @@ public class BaseEnemy : BaseEntity
     private void Update()
     {
         _stateMachine?.Tick();
+        if (entityDetector.entity != null) entityDetector.hasSight = entityDetector.DirectSight(entityDetector.entity.position);
+        else entityDetector.hasSight = false;
+        if (!entityDetector.hasSight) entityDetector.entity = null;
     }
 
     public override void TakeDamage(float damage, Vector3 dir)
@@ -33,6 +37,7 @@ public class BaseEnemy : BaseEntity
 
         if (health <= 0)
         {
+            rb.isKinematic = false;
             rb.AddForce(dir * 500f);
         }
     }

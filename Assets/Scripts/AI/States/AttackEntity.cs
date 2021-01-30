@@ -10,6 +10,7 @@ public class AttackEntity : IState
     private EntityDetector _enemyDetector;
     private Animator _animator;
     private Transform _enemy;
+    private float attackDelay;
 
     public AttackEntity(BaseEntity entity, NavMeshAgent navMeshAgent, EntityDetector entityDetector, Animator animator)
     {
@@ -22,16 +23,18 @@ public class AttackEntity : IState
 
     public void OnEnter()
     {
-        throw new System.NotImplementedException();
+        _enemy = _enemyDetector.entity;
+        attackDelay =  (_entity as BaseEnemy).attackDelay;
     }
 
     public void OnExit()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void Tick()
     {
-        throw new System.NotImplementedException();
+        attackDelay -= Time.deltaTime;
+        if(_enemyDetector.hasSight && attackDelay<=0) _entity.AttackEnemy(_enemy);
     }
 }
