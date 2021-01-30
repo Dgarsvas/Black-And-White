@@ -33,16 +33,22 @@ public class GenerationController : MonoBehaviour
     public GameObject[] roomPrefabs;
     public GameObject[] patrolPrefabs;
     public GameObject[] guardPrefabs;
+
+    public GameObject girlPrefab;
+    public GameObject[] stairsPrefabs;
+
     [HideInInspector]
     public List<Room> rooms;
     public int maxRoomCount;
 
-    public delegate void Notify();
-    public event Notify GenerationCompleted;
-
-    private Room lastSpawnedRoom;
     public List<GuardSpawn> guardSpawnList;
     public List<PatrolSpawn> patrolSpawnList;
+
+    private Room lastSpawnedRoom;
+    private Vector3 stairLocation;
+
+    public delegate void Notify();
+    public event Notify GenerationCompleted;
 
     void Awake()
     {
@@ -56,7 +62,6 @@ public class GenerationController : MonoBehaviour
             GenerateRooms();
         }
     }
-
 
     private void GenerateRooms()
     {
@@ -94,17 +99,20 @@ public class GenerationController : MonoBehaviour
             room.GenerateRoom(1, 1, RoomType.Standart, point);
         }
 
-        lastSpawnedRoom.SetAsLastRoom();
+        lastSpawnedRoom.navMeshSurface.BuildNavMesh();
+        GenerationComplete();
     }
 
     internal void GenerationComplete()
     {
-        SpawnAllEnemies();
+        SpawnAllEntities();
         FadeManager.instance.StartFadeIn();
     }
 
-    private void SpawnAllEnemies()
+    private void SpawnAllEntities()
     {
+        SpawnGirl(lastSpawnedRoom.mainPoint);
+
         for (int i = 0; i < patrolSpawnList.Count; i++)
         {
             var enemy = Instantiate(GetRandomPatrolEnemy(), patrolSpawnList[i].route.points[0].position, Quaternion.identity);
@@ -166,11 +174,13 @@ public class GenerationController : MonoBehaviour
 
     internal void SpawnGirl(Transform mainPoint)
     {
-        //TODO
+        Girl girl= Instantiate(girlPrefab, mainPoint.position, Quaternion.identity).GetComponent<Girl>();
+        girl.Setup(stairLocation);
     }
 
     internal void SpawnEntry(Transform mainPoint)
     {
-        //TODO
+        Instantiate(stairsPrefabs[Random.Range(0, stairsPrefabs.Length)], mainPoint.position, Quaternion.identity);
+        stairLocation = mainPoint.position;
     }
 }
