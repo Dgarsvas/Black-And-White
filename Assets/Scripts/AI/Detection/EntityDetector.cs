@@ -58,4 +58,13 @@ public class EntityDetector : MonoBehaviour
             entityPos = coll.transform.position;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        if (detected)
+        {
+            Gizmos.DrawSphere(entityPos, 1);
+        }
+    }
 }
