@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 internal class Patrol : IState
 {
-    private readonly Grunt _grunt;
+    private readonly BaseEntity _entity;
     private readonly NavMeshAgent _navMeshAgent;
     private readonly Animator _animator;
     private static readonly int Speed = Animator.StringToHash("Speed");
@@ -14,9 +14,9 @@ internal class Patrol : IState
     private Transform[] _points;
     private int currentPoint;
 
-    public Patrol(Grunt grunt, NavMeshAgent navMeshAgent, Animator animator, Transform[] patrolPoints)
+    public Patrol(BaseEntity entity, NavMeshAgent navMeshAgent, Animator animator, Transform[] patrolPoints)
     {
-        _grunt = grunt;
+        _entity = entity;
         _navMeshAgent = navMeshAgent;
         _animator = animator;
         _points = patrolPoints;
@@ -24,14 +24,14 @@ internal class Patrol : IState
     
     public void Tick()
     {
-        if (AIUtils.ApproximatePositionReached(_grunt.transform.position, _points[currentPoint].position))
+        if (AIUtils.ApproximatePositionReached(_entity.transform.position, _points[currentPoint].position))
         {
             GoToNextPoint();
         }
 
-        _lastPosition = _grunt.transform.position;
+        _lastPosition = _entity.transform.position;
 
-        _grunt.transform.rotation = AIUtils.LookAt(_grunt.transform.position, _points[currentPoint].position);
+        _entity.transform.rotation = AIUtils.LookAt(_entity.transform.position, _points[currentPoint].position);
     }
 
     private void GoToNextPoint()

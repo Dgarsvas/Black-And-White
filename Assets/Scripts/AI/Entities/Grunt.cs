@@ -2,13 +2,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Grunt : BaseEntity
+public class GruntDep : BaseEnemy
 {
-    private StateMachine _stateMachine;
-    private EntityDetector entityDetector;
-    private Rigidbody rb;
-    public float attackDelay = 0.3f;
-
     [SerializeField]
     private Transform[] patrolPoints;
 
@@ -46,26 +41,7 @@ public class Grunt : BaseEntity
 
     private void Update()
     {
-        if (entityDetector.entity != null) entityDetector.hasSight = entityDetector.DirectSight(entityDetector.entity.position);
-        else entityDetector.hasSight = false;
         
-        _stateMachine.Tick();
-        if (!entityDetector.hasSight) entityDetector.entity = null;
         //entityDetector.hasSight = false;
-    }
-
-    public override void TakeDamage(float damage, Vector3 dir)
-    {
-        health -= damage;
-
-        if (health <= 0)
-        {
-            rb.AddForce(dir * 500f);
-        }
-    }
-
-    public override void Despawn()
-    {
-        Destroy(gameObject);
     }
 }

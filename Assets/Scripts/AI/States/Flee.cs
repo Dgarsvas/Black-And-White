@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class Flee : IState
 {
-    private readonly Grunt _gatherer;
+    private readonly BaseEntity _entity;
     private NavMeshAgent _navMeshAgent;
     private readonly EntityDetector _enemyDetector;
     private Animator _animator;
@@ -11,11 +11,10 @@ public class Flee : IState
 
     private float _initialSpeed;
     private const float FLEE_SPEED = 6F;
-    private const float FLEE_DISTANCE = 5F;
 
-    public Flee(Grunt gatherer, NavMeshAgent navMeshAgent, EntityDetector enemyDetector, Animator animator)
+    public Flee(BaseEntity entity, NavMeshAgent navMeshAgent, EntityDetector enemyDetector, Animator animator)
     {
-        _gatherer = gatherer;
+        _entity = entity;
         _navMeshAgent = navMeshAgent;
         _enemyDetector = enemyDetector;
         _animator = animator;
@@ -41,7 +40,7 @@ public class Flee : IState
     private Vector3 GetRandomPoint()
     {
         //TODO
-        return _gatherer.transform.position;
+        return _entity.transform.position;
     }
 
     public void OnExit()

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ChaseEntity : IState
 {
-    private readonly Grunt _grunt;
+    private BaseEntity _entity;
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private EntityDetector _entityDetector;
@@ -16,9 +16,9 @@ public class ChaseEntity : IState
     public float timer;
     private float waitTimer;
 
-    public ChaseEntity(Grunt grunt, EntityDetector entityDetector, NavMeshAgent navMeshAgent, Animator animator)
+    public ChaseEntity(BaseEntity entity, EntityDetector entityDetector, NavMeshAgent navMeshAgent, Animator animator)
     {
-        _grunt = grunt;
+        _entity = entity;
         _navMeshAgent = navMeshAgent;
         _animator = animator;
         _target = entityDetector.entityPos;
@@ -29,14 +29,14 @@ public class ChaseEntity : IState
     {
         if (!inPosition)
         {
-            if (AIUtils.ApproximatePositionReached(_grunt.transform.position, _target))
+            if (AIUtils.ApproximatePositionReached(_entity.transform.position, _target))
             {
                 inPosition = true;
             }
         }
 
         //_navMeshAgent.SetDestination(_target);
-        _grunt.transform.rotation = AIUtils.LookAt(_grunt.transform.position, _target);
+        _entity.transform.rotation = AIUtils.LookAt(_entity.transform.position, _target);
         //if (_entityDetector.hasSight) _grunt.AttackEnemy(_enemy);
         Debug.Log("Chasing player");
     }

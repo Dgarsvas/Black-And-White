@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   equipedWeapon: {fileID: 1090226671040135179}
+  attackDelay: 0.3
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
