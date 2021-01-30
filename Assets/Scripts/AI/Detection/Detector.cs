@@ -12,4 +12,10 @@ public class Detector : MonoBehaviour
         Debug.Log($"Detected {other.gameObject.name}");
         OnDetected?.Invoke(other);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log($"Detected {other.gameObject.name}");
+        OnDetected?.Invoke(other);
+    }
 }

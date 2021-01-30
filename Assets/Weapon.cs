@@ -63,9 +63,15 @@ public class Weapon : MonoBehaviour
 				if (hit.collider.gameObject.CompareTag("Enemy")) 
 				{
 					Debug.DrawRay(transform.position, direction * 10f, Color.red);
-					Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
-					enemy.health -= damage;
-					if(enemy.health<=0) hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(direction * 500f);
+					BaseEntity enemy = hit.collider.gameObject.GetComponent<BaseEntity>();
+					if (enemy.health - damage > 0)
+					{
+						enemy.TakeDamage(damage);
+					}
+					else
+					{
+						enemy.TakeDamage(damage, direction);
+					}
 				}
 				else if (hit.collider.gameObject.CompareTag("Player"))
 				{
