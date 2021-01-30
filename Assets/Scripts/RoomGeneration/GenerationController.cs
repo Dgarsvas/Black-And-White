@@ -100,9 +100,8 @@ public class GenerationController : MonoBehaviour
     internal void GenerationComplete()
     {
         SpawnAllEnemies();
+        FadeManager.instance.StartFadeIn();
     }
-
-
 
     private void SpawnAllEnemies()
     {
