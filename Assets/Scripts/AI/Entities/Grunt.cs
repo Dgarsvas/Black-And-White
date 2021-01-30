@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Grunt : BaseEntity
+public class Grunt : BaseEnemy
 {
     private StateMachine _stateMachine;
     private EntityDetector entityDetector;
