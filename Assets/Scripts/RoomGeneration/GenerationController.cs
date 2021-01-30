@@ -34,7 +34,7 @@ public class GenerationController : MonoBehaviour
     private void GenerateRooms()
     {
         rooms = new List<Room>();
-        int roomCount = 1;
+        int roomCount = 2;
         SpawnFirstRoom();
         while (roomCount < maxRoomCount)
         {

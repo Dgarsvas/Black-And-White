@@ -1127,7 +1127,7 @@ MonoBehaviour:
   patrolPrefabs: []
   staticPrefabs: []
   rooms: []
-  maxRoomCount: 5
+  maxRoomCount: 4
 --- !u!4 &953567935
 Transform:
   m_ObjectHideFlags: 0

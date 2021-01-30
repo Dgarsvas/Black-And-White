@@ -91,16 +91,8 @@ public class Room : MonoBehaviour
     private Dir GetDirection(Transform entryPoint)
     {
         float x = entryPoint.localPosition.x / roomSize.x;
-        if (Mathf.Abs(x) != 1)
-        {
-            x = 0;
-        }
-
         float y = entryPoint.localPosition.y / roomSize.y;
-        if (Mathf.Abs(y) != 1)
-        {
-            y = 0;
-        }
+
         Dir dir = Dir.Up;
         Vector2 norm = new Vector2(x, y);
 
