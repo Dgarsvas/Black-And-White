@@ -18,14 +18,14 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        raycastFloor();
-        followPlayer();
+        RaycastFloor();
+        FollowPlayer();
     }
 
     /// <summary>
     /// raycast with floor and sets floorRaycast to hit
     /// </summary>
-    void raycastFloor() {
+    void RaycastFloor() {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         LayerMask mask = LayerMask.GetMask("Floor");
         RaycastHit hit;
@@ -38,7 +38,7 @@ public class CameraFollow : MonoBehaviour
     /// <summary>
     /// follows player and updates positions
     /// </summary>
-    void followPlayer() {
+    void FollowPlayer() {
         Vector3 nextPosition = target.position * 0.7f + floorRaycast.point * 0.3f + originalPosition;
         Vector3 interpolatedPosition = Vector3.Lerp(transform.position, nextPosition, cameraSpeed * Time.deltaTime);
         transform.position = interpolatedPosition;
