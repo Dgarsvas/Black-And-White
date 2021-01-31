@@ -25,6 +25,7 @@ public class Die : IState
         _navMeshAgent.enabled = false;
         _enemyDetector.enabled = false;
         _animator.speed = 0;
+        _entity.GetComponent<AudioSource>().Play();
         //TODO activate ragdoll
     }
 
