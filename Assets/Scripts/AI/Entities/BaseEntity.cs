@@ -20,7 +20,7 @@ public class BaseEntity : MonoBehaviour
 
     public virtual void Despawn()
     {
-
+        Destroy(gameObject);
     }
 
     public void AttackEnemy(Transform enemy)

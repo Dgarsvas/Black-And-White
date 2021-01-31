@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public static Vector3 stairsPos;
+    public Vector3 stairsPos;
 
     public Transform playerTransform;
     
@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     public void GirlFound()
     {
-        Debug.Log("Girl found!!!!!!!!!!");
         uiController.ChangeObjective("Escape!");
         OnGirlFound?.Invoke(playerTransform);
     }

@@ -10,19 +10,36 @@ public class Girl : BaseEntity
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
 
+    private bool setupIsDone;
+    private bool goingToStairs;
     public void Setup(Vector3 end)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        _stateMachine = new StateMachine();
 
-        var wait = new WaitAt(animator);
-        var run = new RunTo(this, navMeshAgent, animator, end);
+        setupIsDone = true;
+    }
 
-        _stateMachine.AddTransition(wait, run, () => AIUtils.ApproximatePositionReached(transform.position, GameManager.instance.playerTransform.position, 2f));
+    private void Update()
+    {
+        if (setupIsDone)
+        {
+            if (!goingToStairs)
+            {
+                if (AIUtils.ApproximatePositionReached(transform.position, GameManager.instance.playerTransform.position, 2f))
+                {
+                    GameManager.instance.GirlFound();
+                    navMeshAgent.destination = GameManager.instance.stairsPos;
+                    goingToStairs = true;
+                }
+            }
+            else if(AIUtils.ApproximatePositionReached(transform.position, GameManager.instance.stairsPos, 2f))
+            {
+                Despawn();
+            }
 
-        _stateMachine.SetState(wait);
+        }
     }
 
     public override void TakeDamage(float damage, Vector3 direction)
