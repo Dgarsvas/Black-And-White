@@ -60,6 +60,6 @@ internal class Patrol : IState
     public void OnExit()
     {
         _navMeshAgent.enabled = false;
-        _animator.SetFloat(Speed, 0f);
+        //_animator.SetFloat(Speed, 0f);
     }
 }

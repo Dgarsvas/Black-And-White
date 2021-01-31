@@ -61,6 +61,6 @@ public class ChaseEntity : IState
     {
         _entityDetector.canReactToNewDetections = true;
         _navMeshAgent.enabled = false;
-        _animator.SetFloat(Speed, 0f);
+        //_animator.SetFloat(Speed, 0f);
     }
 }
