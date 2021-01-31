@@ -57,6 +57,7 @@ public class EntityDetector : MonoBehaviour
         {
             detected = true;
             entityPos = coll.transform.position;
+            timelastSeen = Time.time;
         }
     }
 
