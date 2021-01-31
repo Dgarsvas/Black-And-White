@@ -18,6 +18,8 @@ public class BaseEnemy : BaseEntity
     protected Animator animator;
     public float attackDelay = 0.3f;
 
+    public AudioClip hitSound;
+
     public virtual void ShowSign(Signs sign)
     {
         throw new NotImplementedException();

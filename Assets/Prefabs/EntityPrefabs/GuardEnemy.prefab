@@ -1997,6 +1997,7 @@ MonoBehaviour:
   health: 100
   equipedWeapon: {fileID: 2283177019335628066}
   attackDelay: 0.3
+  hitSound: {fileID: 8300000, guid: 4cf7370bcfc8ab74cb573b52acdf0864, type: 3}
 --- !u!82 &6215826368227063218
 AudioSource:
   m_ObjectHideFlags: 0

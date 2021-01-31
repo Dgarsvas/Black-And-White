@@ -42,4 +42,15 @@ public class PatrolEnemy : BaseEnemy
         _stateMachine.SetState(patrol);
         //Debug.Log(_stateMachine.GetType());
     }
+
+    public override void TakeDamage(float damage, Vector3 dir)
+    {
+        GetComponent<AudioSource>().PlayOneShot(hitSound);
+
+        health = Mathf.Max(0, health - damage);
+        if (health == 0)
+        {
+            Despawn();
+        }
+    }
 }
