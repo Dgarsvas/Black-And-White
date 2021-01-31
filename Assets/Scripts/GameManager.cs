@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        uiController.ChangeObjective("Find the girl!");
     }
 
     public void GirlFound()

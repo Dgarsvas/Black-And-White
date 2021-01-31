@@ -176,7 +176,11 @@ public class GenerationController : MonoBehaviour
     internal void GenerationComplete()
     {
         SpawnAllEntities();
-        FadeManager.instance.StartFadeIn();
+
+        FadeManager.instance.StartFadeIn(() => 
+        {
+            GameManager.instance.uiController.ChangeObjective("Find the girl!");
+        });
     }
 
     private void SpawnAllEntities()

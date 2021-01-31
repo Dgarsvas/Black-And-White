@@ -25,7 +25,7 @@ public class StoryController : MonoBehaviour
 
     private IEnumerator Story()
     {
-        WaitForSeconds seconds = new WaitForSeconds(5f);
+        WaitForSeconds seconds = new WaitForSeconds(8f);
         for (int i = 0; i < storyImages.Length; i++)
         {
             Show(storyImages[i]);
