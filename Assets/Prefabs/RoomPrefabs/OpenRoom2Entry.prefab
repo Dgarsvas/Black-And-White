@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408391669267495534}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.5, y: 0.37, z: 5.07}
+  m_LocalPosition: {x: -14.5, y: 0, z: 5.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4793916240981790974}
@@ -290,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3170494351560482225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.02, y: 0.219, z: -10}
+  m_LocalPosition: {x: -6.02, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4793916240981790974}
@@ -624,7 +624,6 @@ MonoBehaviour:
   - {fileID: 3257919723571154577}
   - {fileID: 6153203274308542185}
   - {fileID: 9089096253420183228}
-  obstaclePositions: []
   mainPoint: {fileID: 8683477213297889316}
   navMeshSurface: {fileID: 793492168350147368}
   entryPoints:
@@ -715,7 +714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7353476084087614446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.927, y: 0.219, z: 10}
+  m_LocalPosition: {x: 5.927, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4793916240981790974}

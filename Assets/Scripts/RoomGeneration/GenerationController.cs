@@ -27,15 +27,41 @@ public class PatrolSpawn
     }
 }
 
+[Serializable]
+public class RoomItem
+{
+    public GameObject prefab;
+    public bool canSpawnAsSpecialRoom;
+    public int weight;
+}
+
+public class WeightedRoomList
+{
+    List<RoomItem> list;
+
+    public WeightedRoomList()
+    {
+        list = new List<RoomItem>();
+    }
+
+    public void Add(RoomItem item)
+    {
+        list.Add(item);
+    }
+
+    
+}
+
 public class GenerationController : MonoBehaviour
 {
     public static GenerationController instance;
-    public GameObject[] roomPrefabs;
+    public List<RoomItem> roomPrefabs;
     public GameObject[] patrolPrefabs;
     public GameObject[] guardPrefabs;
 
-    public GameObject girlPrefab;
     public GameObject[] stairsPrefabs;
+    public GameObject girlPrefab;
+    public GameObject playerPrefab;
 
     [HideInInspector]
     public List<Room> rooms;
@@ -46,9 +72,6 @@ public class GenerationController : MonoBehaviour
 
     private Room lastSpawnedRoom;
     private Vector3 stairLocation;
-
-    public delegate void Notify();
-    public event Notify GenerationCompleted;
 
     void Awake()
     {
@@ -68,37 +91,85 @@ public class GenerationController : MonoBehaviour
         guardSpawnList = new List<GuardSpawn>();
         patrolSpawnList = new List<PatrolSpawn>();
         rooms = new List<Room>();
-        int roomCount = 2;
+        int roomCount = 0;
         SpawnFirstRoom();
-        while (roomCount < maxRoomCount)
+        while (roomCount < maxRoomCount - 2)
         {
             if (FindAvailablePoint(out Transform point))
             {
-                Room room = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Length)], point.position, point.rotation).GetComponent<Room>();
-                lastSpawnedRoom = room;
-                rooms.Add(room);
-                room.GenerateRoom(1, 1, RoomType.Standart, point);
+                Room room = SpawnRoom(point);
                 roomCount++;
+                room.name = $"Room {roomCount}";
             }
             else
             {
                 break;
             }
         }
-
         SpawnLastRoom();
+    }
+
+    private Room SpawnRoom(Transform point, bool isSpecial = false)
+    {
+        Room room = Instantiate(GetRandomRoom(isSpecial), point.position, point.rotation).GetComponent<Room>();
+        rooms.Add(room);
+        room.GenerateRoom(1, 1, RoomType.Standart, point);
+        lastSpawnedRoom = room;
+        return room;
+    }
+
+    public GameObject GetRandomRoom(bool isSpecialRoom)
+    {
+        if (isSpecialRoom)
+        {
+            List<RoomItem> specialRooms = roomPrefabs.Where(item => item.canSpawnAsSpecialRoom).ToList();
+
+            int totalWeight = 0;
+            foreach (var room in specialRooms)
+            {
+                totalWeight += room.weight;
+            }
+            int weight = Random.Range(0, totalWeight);
+            int weightSum = 0;
+            foreach (var room in specialRooms)
+            {
+                if (weightSum > weight)
+                {
+                    return room.prefab;
+                }
+                weightSum += room.weight;
+            }
+        }
+        else
+        {
+            int totalWeight = 0;
+            foreach (var room in roomPrefabs)
+            {
+                totalWeight += room.weight;
+            }
+            int weight = Random.Range(0, totalWeight);
+            int weightSum = 0;
+            foreach (var room in roomPrefabs)
+            {
+                if (weightSum > weight)
+                {
+                    return room.prefab;
+                }
+                weightSum += room.weight;
+            }
+        }
+
+        return null;
     }
 
     private void SpawnLastRoom()
     {
         if (FindAvailablePoint(out Transform point))
         {
-            Room room = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Length)], point.position, point.rotation).GetComponent<Room>();
-            lastSpawnedRoom = room;
-            rooms.Add(room);
-            room.GenerateRoom(1, 1, RoomType.Standart, point);
+            SpawnRoom(point, true);
         }
 
+        lastSpawnedRoom.name = "EndRoom";
         lastSpawnedRoom.navMeshSurface.BuildNavMesh();
         GenerationComplete();
     }
@@ -106,11 +177,12 @@ public class GenerationController : MonoBehaviour
     internal void GenerationComplete()
     {
         SpawnAllEntities();
-        FadeManager.instance.StartFadeIn();
+        //FadeManager.instance.StartFadeIn();
     }
 
     private void SpawnAllEntities()
     {
+        SpawnPlayer(stairLocation);
         SpawnGirl(lastSpawnedRoom.mainPoint);
 
         for (int i = 0; i < patrolSpawnList.Count; i++)
@@ -130,10 +202,11 @@ public class GenerationController : MonoBehaviour
 
     private void SpawnFirstRoom()
     {
-        Room room = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Length)], Vector3.zero, Quaternion.identity).GetComponent<Room>();
+        Room room = Instantiate(GetRandomRoom(true), Vector3.zero, Quaternion.identity).GetComponent<Room>();
         lastSpawnedRoom = room;
         rooms.Add(room);
         room.GenerateRoom(1, 1, RoomType.Start);
+        room.name = "StartRoom";
     }
 
     private bool FindAvailablePoint(out Transform point)
@@ -156,12 +229,6 @@ public class GenerationController : MonoBehaviour
         return rooms[Random.Range(0, rooms.Count)];
     }
 
-    internal GameObject GetRandomObstacle()
-    {
-        //TODO
-        return null;
-    }
-
     internal GameObject GetRandomPatrolEnemy()
     {
         return patrolPrefabs[Random.Range(0, patrolPrefabs.Length)];
@@ -174,8 +241,13 @@ public class GenerationController : MonoBehaviour
 
     internal void SpawnGirl(Transform mainPoint)
     {
-        Girl girl= Instantiate(girlPrefab, mainPoint.position, Quaternion.identity).GetComponent<Girl>();
+        Girl girl = Instantiate(girlPrefab, mainPoint.position, Quaternion.identity).GetComponent<Girl>();
         girl.Setup(stairLocation);
+    }
+
+    internal void SpawnPlayer(Vector3 pos)
+    {
+        Instantiate(playerPrefab, pos, Quaternion.identity);
     }
 
     internal void SpawnEntry(Transform mainPoint)

@@ -10,14 +10,23 @@ public class CameraFollow : MonoBehaviour
     public RaycastHit floorRaycast;
     public float cameraSpeed = 8f; //speed for following
 
-    void Start()
+    bool isSet = false;
+
+    public void Setup(Transform player)
     {
+        target = player;
         originalPosition = transform.position;
         camera = GetComponent<Camera>();
+        isSet = true;
     }
 
     void Update()
     {
+        if (!isSet)
+        {
+            return;
+        }
+
         RaycastFloor();
         FollowPlayer();
     }
