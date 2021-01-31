@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 68dae271729261248978a928b1605e09
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: a4fc9604df559aa4d8d498eb97cce8b6
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 0
     path: Assets/Scenes/Mykolo Tests.unity
     guid: 5a71adfc67e1a034891f4fc98d078bbd
-  - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: 68dae271729261248978a928b1605e09
-  - enabled: 0
-    path: Assets/Scenes/AI test scene.unity
-    guid: a4fc9604df559aa4d8d498eb97cce8b6
   m_configObjects: {}
