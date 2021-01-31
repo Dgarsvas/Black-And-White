@@ -103,7 +103,7 @@ MonoBehaviour:
   ammoCapacity: 30
   mag: 10
   magCapacity: 10
-  shootInterval: 0.5
+  shootInterval: 0.6
   reloadTime: 1
   bulletSpread: 0.05
   equiped: 0

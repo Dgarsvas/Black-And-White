@@ -30,6 +30,7 @@ public class AttackEntity : IState
     public void OnExit()
     {
         //throw new System.NotImplementedException();
+        _animator.SetBool("Shooting", false);
     }
 
     public void Tick()
