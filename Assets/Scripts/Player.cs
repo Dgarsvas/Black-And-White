@@ -11,8 +11,10 @@ public class Player : MonoBehaviour
     public Weapon currentWeapon;
     public Transform weaponSlot;
 
+    Animator animator;
+
     NavMeshAgent agent;
-    float speed = 0.5f; //speed of movement
+    public float speed = 1f; //speed of movement
     public float health = 100;
     public bool hiding = false;
     public bool moving = false;
@@ -24,12 +26,14 @@ public class Player : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         cameraFollow = Camera.main.GetComponent<CameraFollow>();
         cameraFollow.Setup(transform);
     }
 
     void Update()
     {
+        
         float x = Input.GetAxisRaw("Vertical");
         float z = Input.GetAxisRaw("Horizontal");
         moving = (x != 0 || z != 0);
@@ -37,7 +41,7 @@ public class Player : MonoBehaviour
         //Move
         float currentSpeed = speed;
         if (sneaking) currentSpeed *= 0.1f;
-        Vector3 moveDestination = transform.position + new Vector3(- x + z, 0, x + z) * currentSpeed;
+        Vector3 moveDestination = transform.position + new Vector3(-x + z, 0, x + z) * currentSpeed;
         agent.destination = moveDestination;
 
         //Rotate
@@ -65,6 +69,12 @@ public class Player : MonoBehaviour
         //reload
         if (Input.GetKeyDown(KeyCode.R)) currentWeapon.Reload();
 
+        //for animations
+        animator.SetBool("Walking", moving);
+        animator.SetBool("Shooting", recentlyShot>-50);
+        Vector3 walkingDirection = (transform.position - agent.destination).normalized;
+        float angle = Vector3.Angle(walkingDirection, direction);
+        animator.SetBool("Sideways", angle > 70 && angle < 150);
     }
     /// <summary>
     /// checks if there is a wall and sets player rotation to wall normal
@@ -89,7 +99,7 @@ public class Player : MonoBehaviour
     }
     void RotateY(Vector3 direction) {
         float rot_z = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 180 - rot_z, 0f);
+        transform.rotation = Quaternion.Euler(0f, 270 - rot_z, 0f);
     }
     public void TakeDamage(float damage)
     {

@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
 			//direction = new Vector3(direction.x, 0, direction.z);
 
 			Vector3 direction = -transform.forward;
-			Debug.Log("Weapon direction: " + direction.ToString());
+			//Debug.Log("Weapon direction: " + direction.ToString());
 			//apply bullet spread
 			direction += transform.up * (Random.value*2 - 1) * bulletSpread + transform.right * (Random.value * 2 - 1) * bulletSpread;
 			direction = direction.normalized;

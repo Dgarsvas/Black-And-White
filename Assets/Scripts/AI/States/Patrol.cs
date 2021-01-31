@@ -32,6 +32,7 @@ internal class Patrol : IState
         _lastPosition = _entity.transform.position;
 
         _entity.transform.rotation = AIUtils.LookAt(_entity.transform.position, _points[currentPoint].position);
+        _animator.SetBool("Walking", true);
     }
 
     private void GoToNextPoint()
@@ -59,6 +60,6 @@ internal class Patrol : IState
     public void OnExit()
     {
         _navMeshAgent.enabled = false;
-        _animator.SetFloat(Speed, 0f);
+        //_animator.SetFloat(Speed, 0f);
     }
 }

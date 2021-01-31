@@ -11,11 +11,11 @@ public static class AIUtils
     public static Quaternion RotateY(Vector3 direction)
     {
         float rot_z = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-        return Quaternion.Euler(0f, 180 - rot_z, 0f);
+        return Quaternion.Euler(0f, 270 - rot_z, 0f);
     }
     public static Quaternion LookAt(Vector3 from, Vector3 to) {
         Vector3 direction = (from - to).normalized;
         float rot_z = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-        return Quaternion.Euler(0f, 180 - rot_z, 0f);
+        return Quaternion.Euler(0f, 270 - rot_z, 0f);
     }
 }

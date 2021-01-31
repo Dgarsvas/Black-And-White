@@ -39,7 +39,7 @@ public class Guard : IState
             _entity.transform.rotation = Quaternion.Euler(0f, _lookRot + Mathf.Sin(timer) * GlobalAISettings.LOOK_DEGREES, 0f);
             timer += Time.deltaTime;
         }
-        
+        _animator.SetBool("Walking", !posReached);
     }
 
     public void OnEnter()
@@ -53,6 +53,6 @@ public class Guard : IState
     public void OnExit()
     {
         _navMeshAgent.enabled = false;
-        _animator.SetFloat(Speed, 0f);
+        //_animator.SetFloat(Speed, 0f);
     }
 }

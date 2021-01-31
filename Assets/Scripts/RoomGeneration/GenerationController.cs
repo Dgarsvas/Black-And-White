@@ -247,7 +247,9 @@ public class GenerationController : MonoBehaviour
 
     internal void SpawnPlayer(Vector3 pos)
     {
-        Instantiate(playerPrefab, pos, Quaternion.identity);
+        GameObject gameObject = Instantiate(playerPrefab, pos, Quaternion.identity);
+        Camera.main.GetComponent<CameraFollow>().target = gameObject.transform;
+        Camera.main.transform.position = gameObject.transform.position + new Vector3(5,10,-5);
     }
 
     internal void SpawnEntry(Transform mainPoint)
