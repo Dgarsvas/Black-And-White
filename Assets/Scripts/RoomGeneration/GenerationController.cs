@@ -139,6 +139,7 @@ public class GenerationController : MonoBehaviour
                 }
                 weightSum += room.weight;
             }
+            return specialRooms[specialRooms.Count-1].prefab;
         }
         else
         {
@@ -157,9 +158,8 @@ public class GenerationController : MonoBehaviour
                 }
                 weightSum += room.weight;
             }
+            return roomPrefabs[roomPrefabs.Count-1].prefab;
         }
-
-        return null;
     }
 
     private void SpawnLastRoom()
@@ -177,7 +177,7 @@ public class GenerationController : MonoBehaviour
     internal void GenerationComplete()
     {
         SpawnAllEntities();
-        //FadeManager.instance.StartFadeIn();
+        FadeManager.instance.StartFadeIn();
     }
 
     private void SpawnAllEntities()
