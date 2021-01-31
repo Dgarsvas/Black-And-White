@@ -103,14 +103,14 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   lift:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.9902551, z: 0.9726011, w: -0.000000010139206}
   gamma:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.9295821, y: 1, z: 0.80998087, w: 0}
   gain:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.9645887, z: 0.9563631, w: 0}
 --- !u!114 &-3041795159847378763
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
@@ -223,6 +223,7 @@ MonoBehaviour:
   - {fileID: 2771879408528242185}
   - {fileID: -3041795159847378763}
   - {fileID: 438790085636702505}
+  - {fileID: -4280171950128951959}
 --- !u!114 &438790085636702505
 MonoBehaviour:
   m_ObjectHideFlags: 3
