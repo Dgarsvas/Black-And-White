@@ -19,12 +19,12 @@ public class Girl : BaseEntity
         entityDetector = gameObject.GetComponentInChildren<EntityDetector>();
         _stateMachine = new StateMachine();
 
-        var wait = new WaitAt(navMeshAgent, animator);
+        var wait = new WaitAt(animator);
         var run = new RunTo(this, navMeshAgent, animator, end);
 
         _stateMachine.AddTransition(wait, run, () => entityDetector.detected);
 
-        _stateMachine.SetState(wait);
+        _stateMachine.SetState(run);
     }
 
     public override void TakeDamage(float damage, Vector3 direction)

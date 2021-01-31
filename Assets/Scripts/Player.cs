@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         animator.SetBool("Sideways", angle > 70 && angle < 150);
         if (canEscape)
         {
-            if (AIUtils.ApproximatePositionReached(transform.position, GameManager.instance.stairsPos))
+            if (AIUtils.ApproximatePositionReached(transform.position, GameManager.stairsPos))
             {
                 GameManager.instance.PlayerEscaped();
             }

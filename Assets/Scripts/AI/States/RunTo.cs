@@ -22,6 +22,7 @@ public class RunTo : IState
 
     public void OnEnter()
     {
+        Debug.Log("Girl runTo stair");
         _navMeshAgent.enabled = true;
         _navMeshAgent.destination = _destination;
         GameManager.instance.GirlFound();

@@ -72,7 +72,7 @@ public class GenerationController : MonoBehaviour
 
     private Room lastSpawnedRoom;
 
-    void Awake()
+    void Start()
     {
         if (instance != null)
         {
@@ -181,7 +181,7 @@ public class GenerationController : MonoBehaviour
 
     private void SpawnAllEntities()
     {
-        SpawnPlayer(GameManager.instance.stairsPos);
+        SpawnPlayer(GameManager.stairsPos);
         SpawnGirl(lastSpawnedRoom.mainPoint);
 
         for (int i = 0; i < patrolSpawnList.Count; i++)
@@ -241,7 +241,7 @@ public class GenerationController : MonoBehaviour
     internal void SpawnGirl(Transform mainPoint)
     {
         Girl girl = Instantiate(girlPrefab, mainPoint.position, Quaternion.identity).GetComponent<Girl>();
-        girl.Setup(GameManager.instance.stairsPos);
+        girl.Setup(GameManager.stairsPos);
     }
 
     internal void SpawnPlayer(Vector3 pos)
@@ -255,6 +255,6 @@ public class GenerationController : MonoBehaviour
     internal void SpawnEntry(Transform mainPoint)
     {
         Instantiate(stairsPrefabs[Random.Range(0, stairsPrefabs.Length)], mainPoint.position, Quaternion.identity);
-        GameManager.instance.stairsPos = mainPoint.position;
+        GameManager.stairsPos = mainPoint.position;
     }
 }

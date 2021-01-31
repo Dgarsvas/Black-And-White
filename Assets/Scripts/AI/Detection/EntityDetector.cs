@@ -49,7 +49,6 @@ public class EntityDetector : MonoBehaviour
 
     private void PeripheralDetected(Collider coll)
     {
-        Debug.Log("PeripheralDetected");
         if (!canReactToNewDetections)
             return;
 
@@ -68,7 +67,6 @@ public class EntityDetector : MonoBehaviour
 
         if (coll.CompareTag("Player") && DirectSight(coll.transform.position))
         {
-            Debug.Log("VisionDetected");
             //detected = true;
             timelastSeen = Time.time;
             hasSight = true;
@@ -79,7 +77,6 @@ public class EntityDetector : MonoBehaviour
 
     private void SoundDetected(Collider coll)
     {
-        Debug.Log("SoundDetected");
         if (!canReactToNewDetections)
             return;
 

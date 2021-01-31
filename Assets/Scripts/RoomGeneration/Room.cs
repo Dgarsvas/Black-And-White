@@ -64,25 +64,8 @@ public class Room : MonoBehaviour
 
     private void Offset(Transform thisRoom, Transform otherRoom)
     {
-       
-
-        Vector3 diffA = otherRoom.position - thisRoom.position;
-        Vector3 diffB = thisRoom.position - otherRoom.position;
-
-        Debug.Log($"prevEntry:{otherRoom.position} curEntry:{thisRoom.position} moveBy:{(diffB)} roomPos{transform.position}");
-
-        transform.position = otherRoom.position - diffB;
-
-        /*
-        if (thisRoom.position.magnitude < otherRoom.position.magnitude)
-        {
-            transform.position = transform.position - (thisRoom.position - otherRoom.position);
-        }
-        else
-        {
-            transform.position = thisRoom.position + moveBy;
-        }
-        */
+        Vector3 diff = thisRoom.position - otherRoom.position;
+        transform.position = otherRoom.position - diff;
     }
 
     private void Rotate(Transform thisRoom, Transform otherRoom)
@@ -115,8 +98,6 @@ public class Room : MonoBehaviour
                 angle = -90;
                 break;
         }
-
-        Debug.Log($"previousRoom:{otherDir} currentRoom:{thisDir} currentRot:{transform.rotation.eulerAngles.y}  upcomingRot:{transform.rotation.eulerAngles.y + angle}");
 
         transform.rotation = Quaternion.Euler(0, angle + transform.rotation.eulerAngles.y, 0);
     }

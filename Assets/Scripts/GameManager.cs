@@ -5,9 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public static Vector3 stairsPos;
 
     public Transform playerTransform;
-    public Vector3 stairsPos;
+    
 
     public delegate void Notify();
     public delegate void GoAfterThePlayer(Transform player);
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         uiController.ChangeObjective("Find the girl!");
     }
 

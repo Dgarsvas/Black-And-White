@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour
     internal void ShowLooseScreen()
     {
         objectivePanel.SetActive(false);
-        winScreen.SetActive(false);
+        looseScreen.SetActive(true);
     }
 
     public void GoBackToMenu()
