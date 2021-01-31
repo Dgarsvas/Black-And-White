@@ -40,5 +40,6 @@ public class PatrolEnemy : BaseEnemy
         //_stateMachine.AddTransition(flee, patrol, () => RegainedCourage());
 
         _stateMachine.SetState(patrol);
+        //Debug.Log(_stateMachine.GetType());
     }
 }

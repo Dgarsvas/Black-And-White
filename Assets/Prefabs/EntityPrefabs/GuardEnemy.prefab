@@ -1886,7 +1886,7 @@ GameObject:
   - component: {fileID: 5538931167224427692}
   m_Layer: 0
   m_Name: GuardEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2240,7 +2240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3218087414784898116, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3218087414784898116, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2248,7 +2248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3218087414784898116, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3218087414784898116, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2260,7 +2260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3218087414784898116, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 3218087414784898116, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2312,11 +2312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3218087416161989893, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3218087416161989893, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3218087416161989893, guid: 80fd7905a1ec27b49abae78744727c0b, type: 3}
       propertyPath: m_LocalScale.z

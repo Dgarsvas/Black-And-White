@@ -63,12 +63,12 @@ public class EntityDetector : MonoBehaviour
 
     private void VisionDetected(Collider coll)
     {
-        Debug.Log("VisionDetected");
         if (!canReactToNewDetections)
             return;
 
         if (coll.CompareTag("Player") && DirectSight(coll.transform.position))
         {
+            Debug.Log("VisionDetected");
             //detected = true;
             timelastSeen = Time.time;
             hasSight = true;
