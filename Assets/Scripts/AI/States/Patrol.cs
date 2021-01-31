@@ -32,6 +32,7 @@ internal class Patrol : IState
         _lastPosition = _entity.transform.position;
 
         _entity.transform.rotation = AIUtils.LookAt(_entity.transform.position, _points[currentPoint].position);
+        _animator.SetBool("Walking", true);
     }
 
     private void GoToNextPoint()

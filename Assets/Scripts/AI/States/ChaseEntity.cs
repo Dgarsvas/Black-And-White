@@ -34,7 +34,7 @@ public class ChaseEntity : IState
                 inPosition = true;
             }
         }
-
+        _animator.SetBool("Walking", !inPosition);
         //_navMeshAgent.SetDestination(_target);
         _entity.transform.rotation = AIUtils.LookAt(_entity.transform.position, _target);
         //if (_entityDetector.hasSight) _grunt.AttackEnemy(_enemy);

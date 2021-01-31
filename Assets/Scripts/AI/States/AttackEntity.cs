@@ -34,8 +34,11 @@ public class AttackEntity : IState
 
     public void Tick()
     {
-        Debug.Log("Kill");
         attackDelay -= Time.deltaTime;
-        if(_enemyDetector.hasSight && attackDelay<=0) _entity.AttackEnemy(_enemy);
+        if (_enemyDetector.hasSight && attackDelay <= 0) {
+            _entity.AttackEnemy(_enemy);
+            _animator.SetBool("Shooting", true);
+        }
+        else _animator.SetBool("Shooting", false);
     }
 }
