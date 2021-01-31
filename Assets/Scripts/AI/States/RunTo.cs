@@ -9,7 +9,6 @@ public class RunTo : IState
     private NavMeshAgent _navMeshAgent;
     private readonly EntityDetector _enemyDetector;
     private Animator _animator;
-
     private Vector3 _destination;
 
     public RunTo(BaseEntity entity, NavMeshAgent navMeshAgent, Animator animator, Vector3 destination)
@@ -18,12 +17,14 @@ public class RunTo : IState
         _navMeshAgent = navMeshAgent;
         _animator = animator;
         _destination = destination;
+
     }
 
     public void OnEnter()
     {
         _navMeshAgent.enabled = true;
         _navMeshAgent.destination = _destination;
+        GameManager.instance.GirlFound();
     }
 
     public void Tick()

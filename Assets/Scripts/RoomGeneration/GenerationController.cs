@@ -71,7 +71,6 @@ public class GenerationController : MonoBehaviour
     public List<PatrolSpawn> patrolSpawnList;
 
     private Room lastSpawnedRoom;
-    private Vector3 stairLocation;
 
     void Awake()
     {
@@ -182,7 +181,7 @@ public class GenerationController : MonoBehaviour
 
     private void SpawnAllEntities()
     {
-        SpawnPlayer(stairLocation);
+        SpawnPlayer(GameManager.instance.stairsPos);
         SpawnGirl(lastSpawnedRoom.mainPoint);
 
         for (int i = 0; i < patrolSpawnList.Count; i++)
@@ -242,7 +241,7 @@ public class GenerationController : MonoBehaviour
     internal void SpawnGirl(Transform mainPoint)
     {
         Girl girl = Instantiate(girlPrefab, mainPoint.position, Quaternion.identity).GetComponent<Girl>();
-        girl.Setup(stairLocation);
+        girl.Setup(GameManager.instance.stairsPos);
     }
 
     internal void SpawnPlayer(Vector3 pos)
@@ -250,11 +249,12 @@ public class GenerationController : MonoBehaviour
         GameObject gameObject = Instantiate(playerPrefab, pos, Quaternion.identity);
         Camera.main.GetComponent<CameraFollow>().target = gameObject.transform;
         Camera.main.transform.position = gameObject.transform.position + new Vector3(5,10,-5);
+        GameManager.instance.playerTransform = gameObject.transform;
     }
 
     internal void SpawnEntry(Transform mainPoint)
     {
         Instantiate(stairsPrefabs[Random.Range(0, stairsPrefabs.Length)], mainPoint.position, Quaternion.identity);
-        stairLocation = mainPoint.position;
+        GameManager.instance.stairsPos = mainPoint.position;
     }
 }

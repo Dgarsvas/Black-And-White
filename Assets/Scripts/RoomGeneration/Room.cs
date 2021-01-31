@@ -40,24 +40,20 @@ public class Room : MonoBehaviour
 
     public List<Transform> entryPoints;
 
-    public RoomType type;
-
     public static Vector2 roomSize = new Vector2(14.5f, 10f);
 
     public void GenerateRoom(int staticEnemyAmount, int patrolEnemyAmount, RoomType type, Transform pos = null)
     {
-        this.type = type;
-
         switch (type)
         {
             case RoomType.Standart:
                 RotateAndOffsetRoomToMatchPreviousRoomEntry(GetRandomEntry(), pos);
+                SpawnEnemies(staticEnemyAmount, patrolEnemyAmount);
                 break;
             case RoomType.Start:
                 GenerationController.instance.SpawnEntry(mainPoint);
                 break;
         }
-        SpawnEnemies(staticEnemyAmount, patrolEnemyAmount);
     }
 
     private void RotateAndOffsetRoomToMatchPreviousRoomEntry(Transform thisRoom, Transform otherRoom)

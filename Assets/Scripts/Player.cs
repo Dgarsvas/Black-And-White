@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -23,12 +24,21 @@ public class Player : MonoBehaviour
     //Quaternion hidingRotation;
     Vector3 hidingDirection;
 
+    private bool canEscape = false;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         cameraFollow = Camera.main.GetComponent<CameraFollow>();
         cameraFollow.Setup(transform);
+
+        GameManager.instance.OnGirlFound += StartEscape;
+    }
+
+    private void StartEscape(Transform player)
+    {
+        canEscape = true;
     }
 
     void Update()
@@ -69,12 +79,19 @@ public class Player : MonoBehaviour
         //reload
         if (Input.GetKeyDown(KeyCode.R)) currentWeapon.Reload();
 
-        //for animations
+
         animator.SetBool("Walking", moving);
         animator.SetBool("Shooting", recentlyShot>-50);
         Vector3 walkingDirection = (transform.position - agent.destination).normalized;
         float angle = Vector3.Angle(walkingDirection, direction);
         animator.SetBool("Sideways", angle > 70 && angle < 150);
+        if (canEscape)
+        {
+            if (AIUtils.ApproximatePositionReached(transform.position, GameManager.instance.stairsPos))
+            {
+                GameManager.instance.PlayerEscaped();
+            }
+        }
     }
     /// <summary>
     /// checks if there is a wall and sets player rotation to wall normal
@@ -104,5 +121,9 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health = Mathf.Max(0, health - damage);
+        if (health == 0)
+        {
+            GameManager.instance.PlayerDied();
+        }
     }
 }
