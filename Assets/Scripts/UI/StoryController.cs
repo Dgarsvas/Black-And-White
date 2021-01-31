@@ -10,9 +10,10 @@ public class StoryController : MonoBehaviour
     public Sprite[] storyImages;
     public Image image;
 
-    bool canSkip;
+    private bool canSkip;
+    private bool isEnding;
 
-    Coroutine cor;
+    private Coroutine cor;
 
     public void Start()
     {
@@ -45,6 +46,7 @@ public class StoryController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
+                
                 End();
             }
         }
@@ -52,6 +54,12 @@ public class StoryController : MonoBehaviour
 
     private void End()
     {
+        if (isEnding)
+        {
+            return;
+        }
+
+        isEnding = true;
         StopCoroutine(cor);
         FadeManager.instance.StartFadeOut(() =>
         {
