@@ -74,6 +74,7 @@ public class GenerationController : MonoBehaviour
 
     void Start()
     {
+        QualitySettings.pixelLightCount = 16;
         if (instance != null)
         {
             Destroy(gameObject);

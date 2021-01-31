@@ -30,7 +30,7 @@ public class RunTo : IState
 
     public void Tick()
     {
-        if (AIUtils.ApproximatePositionReached(_entity.transform.position,_destination))
+        if (AIUtils.ApproximatePositionReached(_entity.transform.position, _destination))
         {
             _entity.Despawn();
         }

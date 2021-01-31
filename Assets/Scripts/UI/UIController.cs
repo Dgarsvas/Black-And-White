@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
 
     public GameObject winScreen, looseScreen, objectivePanel;
 
+    private bool screenShown;
+
     internal void ChangeObjective(string text)
     {
         objectivePanel.SetActive(true);
@@ -19,14 +21,27 @@ public class UIController : MonoBehaviour
 
     internal void ShowWinScreen()
     {
+        screenShown = true;
         objectivePanel.SetActive(false);
         winScreen.SetActive(true);
     }
 
     internal void ShowLooseScreen()
     {
+        screenShown = true;
         objectivePanel.SetActive(false);
         looseScreen.SetActive(true);
+    }
+
+    public void Update()
+    {
+        if (screenShown)
+        {
+            if (Input.anyKeyDown)
+            {
+                GoBackToMenu();
+            }
+        }
     }
 
     public void GoBackToMenu()

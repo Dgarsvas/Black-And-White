@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public void GirlFound()
     {
+        Debug.Log("Girl found!!!!!!!!!!");
         uiController.ChangeObjective("Escape!");
         OnGirlFound?.Invoke(playerTransform);
     }

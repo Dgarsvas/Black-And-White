@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Girl : BaseEntity
 {
     protected StateMachine _stateMachine;
-    protected EntityDetector entityDetector;
     protected Rigidbody rb;
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
@@ -16,15 +15,14 @@ public class Girl : BaseEntity
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        entityDetector = gameObject.GetComponentInChildren<EntityDetector>();
         _stateMachine = new StateMachine();
 
         var wait = new WaitAt(animator);
         var run = new RunTo(this, navMeshAgent, animator, end);
 
-        _stateMachine.AddTransition(wait, run, () => entityDetector.detected);
+        _stateMachine.AddTransition(wait, run, () => AIUtils.ApproximatePositionReached(transform.position, GameManager.instance.playerTransform.position, 2f));
 
-        _stateMachine.SetState(run);
+        _stateMachine.SetState(wait);
     }
 
     public override void TakeDamage(float damage, Vector3 direction)
