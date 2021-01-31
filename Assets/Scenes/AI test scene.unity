@@ -420,6 +420,7 @@ MonoBehaviour:
   - {fileID: 2714891020006142326, guid: 3209b3a58cc080b48971ed8b5678fbe4, type: 3}
   - {fileID: 2619030231667538448, guid: 02f4c361f480e8241abafb487493daf3, type: 3}
   - {fileID: 5317829496852859460, guid: 72a172448cabd6a419f90ec3721075ba, type: 3}
+  - {fileID: 7029010222695089191, guid: 00104249d31b8b741bf7d4c7580dca41, type: 3}
   patrolPrefabs:
   - {fileID: 7823128398918369229, guid: b6aa7ca004e1fb1409848f56fc294c1f, type: 3}
   guardPrefabs:
