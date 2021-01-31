@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     public GameObject cameraObject;
     CameraFollow cameraFollow;
-    Camera camera;
 
     public Weapon currentWeapon;
     public Transform weaponSlot;
@@ -25,9 +24,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        cameraFollow = cameraObject.GetComponent<CameraFollow>();
-        camera = GetComponent<Camera>();
+        cameraFollow = Camera.main.GetComponent<CameraFollow>();
+        cameraFollow.Setup(transform);
     }
+
     void Update()
     {
         float x = Input.GetAxisRaw("Vertical");

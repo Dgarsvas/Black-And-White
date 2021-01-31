@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836771581071189594}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.95, y: 0.014913797, z: -0.28}
+  m_LocalPosition: {x: -10.93, y: 0.014913797, z: -0.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3392189849468215466}
@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121419088834678764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.5, y: -0.712, z: 1}
+  m_LocalPosition: {x: -14.5, y: -0.725, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3392189849468215466}
@@ -165,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2368727631100385588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.62, y: 0.16541934, z: 1.43}
+  m_LocalPosition: {x: -0.62, y: 0.16541934, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3392189849468215466}
@@ -276,7 +276,6 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 3817159460843019883}
   - {fileID: 8585795031053548438}
-  obstaclePositions: []
   mainPoint: {fileID: 2707897305881614133}
   navMeshSurface: {fileID: 3561498213709451052}
   entryPoints:
@@ -501,7 +500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6880618649362626768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.5, y: -0.712, z: -1}
+  m_LocalPosition: {x: 14.5, y: -0.725, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3392189849468215466}

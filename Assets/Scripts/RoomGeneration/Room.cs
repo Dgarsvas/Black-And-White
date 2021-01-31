@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -13,10 +14,10 @@ public enum RoomType
 
 public enum Dir
 {
-    Left,
     Up,
     Right,
-    Down
+    Down,
+    Left
 }
 
 [Serializable]
@@ -31,8 +32,6 @@ public class Room : MonoBehaviour
     private PatrolRoute[] routes;
     [SerializeField]
     private Transform[] spawnPoints;
-    [SerializeField]
-    private Transform[] obstaclePositions;
     [SerializeField]
     public Transform mainPoint;
 
@@ -58,27 +57,71 @@ public class Room : MonoBehaviour
                 GenerationController.instance.SpawnEntry(mainPoint);
                 break;
         }
-
-        //SpawnObstacles();
         SpawnEnemies(staticEnemyAmount, patrolEnemyAmount);
     }
 
     private void RotateAndOffsetRoomToMatchPreviousRoomEntry(Transform thisRoom, Transform otherRoom)
-    {
+    {  
         Rotate(thisRoom, otherRoom);
         Offset(thisRoom, otherRoom);
     }
 
     private void Offset(Transform thisRoom, Transform otherRoom)
     {
-        transform.position = transform.position - (thisRoom.position - otherRoom.position);
+       
+
+        Vector3 diffA = otherRoom.position - thisRoom.position;
+        Vector3 diffB = thisRoom.position - otherRoom.position;
+
+        Debug.Log($"prevEntry:{otherRoom.position} curEntry:{thisRoom.position} moveBy:{(diffB)} roomPos{transform.position}");
+
+        transform.position = otherRoom.position - diffB;
+
+        /*
+        if (thisRoom.position.magnitude < otherRoom.position.magnitude)
+        {
+            transform.position = transform.position - (thisRoom.position - otherRoom.position);
+        }
+        else
+        {
+            transform.position = thisRoom.position + moveBy;
+        }
+        */
     }
 
     private void Rotate(Transform thisRoom, Transform otherRoom)
     {
         Dir thisDir = GetDirection(thisRoom);
         Dir otherDir = GetDirection(otherRoom);
-        float angle = (((int)thisDir - (int)otherDir + 3) * 90) - 90;
+        int angle = (((int)otherDir) - (int)thisDir);
+
+        switch (angle)
+        {
+            case -3:
+                angle = 90;
+                break;
+            case -2:
+                angle = 0;
+                break;
+            case -1:
+                angle = -90;
+                break;
+            case 0:
+                angle = 180;
+                break;
+            case 1:
+                angle = 90;
+                break;
+            case 2:
+                angle = 0;
+                break;
+            case 3:
+                angle = -90;
+                break;
+        }
+
+        Debug.Log($"previousRoom:{otherDir} currentRoom:{thisDir} currentRot:{transform.rotation.eulerAngles.y}  upcomingRot:{transform.rotation.eulerAngles.y + angle}");
+
         transform.rotation = Quaternion.Euler(0, angle + transform.rotation.eulerAngles.y, 0);
     }
 
@@ -148,22 +191,21 @@ public class Room : MonoBehaviour
 
     private void AddGuardEnemyToSpawnList()
     {
+        if (spawnPoints.Length == 0)
+        {
+            return;
+        }
         Vector3 pos = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
         GenerationController.instance.guardSpawnList.Add(new GuardSpawn(pos, Quaternion.FromToRotation(pos, mainPoint.position).eulerAngles.y));
-
     }
 
     private void AddPatrolEnemyToSpawnList()
     {
+        if (routes.Length == 0)
+        {
+            return;
+        }
         PatrolRoute route = routes[Random.Range(0, routes.Length)];
         GenerationController.instance.patrolSpawnList.Add(new PatrolSpawn(route));
-    }
-
-    private void SpawnObstacles()
-    {
-        for (int i = 0; i < obstaclePositions.Length; i++)
-        {
-            //Instantiate(GenerationController.instance.GetRandomObstacle(), )
-        }
     }
 }
