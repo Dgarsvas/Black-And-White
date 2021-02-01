@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class StoryController : MonoBehaviour
 {
-    public Sprite[] storyImages;
-    public Image image;
+    public Image[] storyImages;
 
     private bool canSkip;
     private bool isEnding;
@@ -26,19 +25,26 @@ public class StoryController : MonoBehaviour
 
     private IEnumerator Story()
     {
-        image.color = Color.white;
-        WaitForSeconds seconds = new WaitForSeconds(4f);
+        WaitForSeconds seconds = new WaitForSeconds(3f);
         for (int i = 0; i < storyImages.Length; i++)
         {
-            Show(storyImages[i]);
             yield return seconds;
+            yield return FadeOut(storyImages[i]);
         }
         End();
     }
 
-    private void Show(Sprite sprite)
+    private IEnumerator FadeOut(Image image)
     {
-        image.sprite = sprite;
+        float timer = 1f;
+        while (timer > 0f)
+        {
+            image.color = new Color(1, 1, 1, timer / 1f);
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        image.color = new Color(1, 1, 1, 0);
     }
 
     public void Update()
@@ -47,7 +53,6 @@ public class StoryController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                
                 End();
             }
         }
