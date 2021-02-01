@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861ed1551732bcf458a421d158eedaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stairsPos: {x: 0, y: 0, z: 0}
   playerTransform: {fileID: 0}
   uiController: {fileID: 1283887820}
 --- !u!114 &1283887820 stripped

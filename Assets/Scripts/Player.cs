@@ -6,7 +6,6 @@ using System;
 
 public class Player : MonoBehaviour
 {
-    public GameObject cameraObject;
     CameraFollow cameraFollow;
 
     public Weapon currentWeapon;
