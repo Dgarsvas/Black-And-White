@@ -173,7 +173,7 @@ public class Room : MonoBehaviour
             return;
         }
         Vector3 pos = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
-        GenerationController.instance.guardSpawnList.Add(new GuardSpawn(pos, Quaternion.FromToRotation(pos, mainPoint.position).eulerAngles.y));
+        GenerationController.instance.guardSpawnList.Add(new GuardSpawn(pos, Quaternion.FromToRotation(pos, transform.position).eulerAngles.y));
     }
 
     private void AddPatrolEnemyToSpawnList()

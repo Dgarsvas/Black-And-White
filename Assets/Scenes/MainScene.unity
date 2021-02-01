@@ -628,9 +628,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefabs:
+  - prefab: {fileID: 5317829496852859460, guid: 61374b579b57b5c48907a896a5a99a9b, type: 3}
+    canSpawnAsSpecialRoom: 1
+    weight: 15
+  - prefab: {fileID: 5317829496852859460, guid: ad59f46b7e346054a94751da1f905c9c, type: 3}
+    canSpawnAsSpecialRoom: 1
+    weight: 15
+  - prefab: {fileID: 5317829496852859460, guid: dcf85c9e32d220b478e96857a5f04f01, type: 3}
+    canSpawnAsSpecialRoom: 1
+    weight: 15
+  - prefab: {fileID: 5317829496852859460, guid: 582a96f978209764a8793038466261b2, type: 3}
+    canSpawnAsSpecialRoom: 1
+    weight: 15
   - prefab: {fileID: 5317829496852859460, guid: 72a172448cabd6a419f90ec3721075ba, type: 3}
     canSpawnAsSpecialRoom: 1
-    weight: 20
+    weight: 15
   - prefab: {fileID: 2714891020006142326, guid: 3209b3a58cc080b48971ed8b5678fbe4, type: 3}
     canSpawnAsSpecialRoom: 1
     weight: 15
@@ -642,26 +654,29 @@ MonoBehaviour:
     weight: 15
   - prefab: {fileID: 2714891020006142326, guid: 4482d469805e36c4d8e804a46bca672f, type: 3}
     canSpawnAsSpecialRoom: 1
-    weight: 15
+    weight: 50
   - prefab: {fileID: 2714891020006142326, guid: c4c33e2ae46a19b49a2eb057887531ba, type: 3}
     canSpawnAsSpecialRoom: 1
     weight: 15
   - prefab: {fileID: 2619030231667538448, guid: 02f4c361f480e8241abafb487493daf3, type: 3}
     canSpawnAsSpecialRoom: 0
-    weight: 50
+    weight: 70
+  - prefab: {fileID: 2619030231667538448, guid: 3aaaead6e5a0b144d9d97bd566071f95, type: 3}
+    canSpawnAsSpecialRoom: 0
+    weight: 70
   - prefab: {fileID: 7029010222695089191, guid: 00104249d31b8b741bf7d4c7580dca41, type: 3}
     canSpawnAsSpecialRoom: 0
-    weight: 50
+    weight: 70
   patrolPrefabs:
   - {fileID: 7788913693648216894, guid: 0d9e05efafc1c584383fa43303ab2ca8, type: 3}
   guardPrefabs:
   - {fileID: 8275337079484114545, guid: b948693eb118aa04c8469e9cdf8f224a, type: 3}
   stairsPrefabs:
-  - {fileID: 1479421986366052416, guid: 7aca7bcea6c9da54ea8ae2a5c596a464, type: 3}
+  - {fileID: 4326676082525559985, guid: 25f061aefe53b5943b52dd558542b064, type: 3}
   girlPrefab: {fileID: 6837131613192991151, guid: bd4c4523a0165b542a5dba59e701c303, type: 3}
   playerPrefab: {fileID: 798055891175138318, guid: 65557888e35902a439ef66f1ff137a8e, type: 3}
   rooms: []
-  maxRoomCount: 5
+  maxRoomCount: 8
 --- !u!4 &953567935
 Transform:
   m_ObjectHideFlags: 0

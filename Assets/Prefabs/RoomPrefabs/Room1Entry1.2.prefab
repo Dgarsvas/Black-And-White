@@ -270,7 +270,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2714891019957252175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.08, y: 0, z: -3.73}
+  m_LocalPosition: {x: 4.08, y: 0, z: 4.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2714891020006142328}
@@ -341,13 +341,11 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 8656698445793934764}
   - {fileID: 7010937241889103774}
-  obstaclePositions: []
   mainPoint: {fileID: 2714891019957252174}
   navMeshSurface: {fileID: 2543947998619701951}
   entryPoints:
   - {fileID: 4766337506449681002}
   - {fileID: 7705518723060333054}
-  type: 0
 --- !u!114 &2543947998619701951
 MonoBehaviour:
   m_ObjectHideFlags: 0
